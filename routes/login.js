@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const connection = require("../db/connection");
+const pool = require("../db/connection");
 
 router.post("/", (req, res) => {
     const { correotelefono, clave } = req.body;
@@ -15,7 +15,7 @@ router.post("/", (req, res) => {
         WHERE correo = ? OR telefono = ?
     `;
 
-    connection.query(sql, [correotelefono, correotelefono], (error, rows) => {
+    pool.query(sql, [correotelefono, correotelefono], (error, rows) => {
         if (error) {
             console.error("Error al consultar usuarios:", error);
             return res.status(500).json({ error: "Error en el servidor" });

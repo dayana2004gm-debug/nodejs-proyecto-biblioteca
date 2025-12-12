@@ -1,17 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const connection = require("../db/connection");
+const pool = require("../db/connection");
 
 router.get("/", (req, res) => {
     const sql = "SELECT * from libros";
-    connection.query(sql, (error, respuesta) => {
+    pool.query(sql, (error, respuesta) => {
         if (error) {
             console.log(error);
             res.end("Error al consultar la base de datos");
-            return
+            return;
         }
-        res.json(respuesta)
-    })
-})
+        res.json(respuesta);
+    });
+});
 
-module.exports = router; 
+module.exports = router;
